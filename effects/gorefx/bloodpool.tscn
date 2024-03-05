@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://effects/gorefx/scripts/bloodpool.gd" type="Script" id=1]
+[ext_resource path="res://art/effects_art/gore_art/bloodpool.png" type="Texture" id=2]
+
+[node name="bloodpool" type="Sprite"]
+z_index = -1
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 25.0
+autostart = true
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
