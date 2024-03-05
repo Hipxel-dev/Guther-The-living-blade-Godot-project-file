@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/multikill.mp3-5024a43429a23515a084df73c4cb6656.mp3str"
+
+[deps]
+
+source_file="res://sounds/player_sounds/announcer/multikill.mp3"
+dest_files=[ "res://.import/multikill.mp3-5024a43429a23515a084df73c4cb6656.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

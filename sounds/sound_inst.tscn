@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://sounds/sound_inst.gd" type="Script" id=1]
+
+[node name="sound_inst" type="AudioStreamPlayer2D"]
+autoplay = true
+script = ExtResource( 1 )
+
+[connection signal="finished" from="." to="." method="_on_sound_inst_finished"]
