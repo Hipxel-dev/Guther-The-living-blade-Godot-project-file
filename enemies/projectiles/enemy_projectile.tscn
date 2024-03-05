@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://art/effects_art/particle_art/blood.png" type="Texture" id=1]
+[ext_resource path="res://art/enemy_art/enemy_projectile.png" type="Texture" id=2]
+[ext_resource path="res://enemies/projectiles/scripts/enemy_projectile.gd" type="Script" id=3]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CanvasItemMaterial" id=3]
+blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 36, 32 )
+
+[node name="enemy_projectile" type="Area2D" groups=["enemy", "enm_attack"]]
+collision_layer = 0
+script = ExtResource( 3 )
+
+[node name="particle" type="CPUParticles2D" parent="."]
+amount = 20
+lifetime = 0.5
+lifetime_randomness = 1.0
+local_coords = false
+texture = ExtResource( 1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 32.0
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+scale_amount = 0.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 2 )
+color = Color( 0.415686, 0.831373, 0.270588, 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

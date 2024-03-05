@@ -1,0 +1,171 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://player/dump/camera_pivot.gd" type="Script" id=1]
+[ext_resource path="res://player/ui/system/death_screen.gd" type="Script" id=2]
+[ext_resource path="res://art/pico-8-font.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://sounds/effect_sounds/powerful-shot.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/impact_sounds/death_piano.wav" type="AudioStream" id=5]
+[ext_resource path="res://art/alagard.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 5
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 5
+font_data = ExtResource( 3 )
+
+[node name="camera_pivot" type="Camera2D"]
+script = ExtResource( 1 )
+
+[node name="camera_view" type="Camera2D" parent="."]
+current = true
+
+[node name="death_menu" type="CanvasLayer" parent="camera_view"]
+
+[node name="death_screen" type="Node2D" parent="camera_view/death_menu"]
+script = ExtResource( 2 )
+
+[node name="blackbg" type="ColorRect" parent="camera_view/death_menu/death_screen"]
+margin_left = -152.0
+margin_top = -54.0
+margin_right = 382.0
+margin_bottom = 219.0
+color = Color( 0, 0, 0, 0.345098 )
+
+[node name="youdiedlol" type="Node2D" parent="camera_view/death_menu/death_screen"]
+position = Vector2( 0, 24 )
+
+[node name="text" type="Label" parent="camera_view/death_menu/death_screen/youdiedlol"]
+margin_right = 319.0
+margin_bottom = 40.0
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "- Thou hath fallen -"
+align = 1
+
+[node name="helprect" type="ColorRect" parent="camera_view/death_menu/death_screen/youdiedlol"]
+margin_left = -40.0
+margin_top = 24.0
+margin_right = 358.0
+margin_bottom = 35.0
+color = Color( 0, 0, 0, 0.498039 )
+
+[node name="helptext" type="Label" parent="camera_view/death_menu/death_screen/youdiedlol"]
+margin_left = 1.0
+margin_top = 26.0
+margin_right = 320.0
+margin_bottom = 54.0
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Try being aggresive when on low health"
+align = 1
+
+[node name="bg" type="ColorRect" parent="camera_view/death_menu/death_screen"]
+margin_left = -43.0
+margin_top = 61.0
+margin_right = 363.0
+margin_bottom = 98.0
+color = Color( 0, 0, 0, 0.498039 )
+
+[node name="text" type="Node2D" parent="camera_view/death_menu/death_screen"]
+position = Vector2( 0, 33 )
+
+[node name="score_text" type="Label" parent="camera_view/death_menu/death_screen/text"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 114.0
+margin_bottom = 37.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "score"
+
+[node name="kills_text" type="Label" parent="camera_view/death_menu/death_screen/text"]
+margin_left = 32.0
+margin_top = 40.0
+margin_right = 114.0
+margin_bottom = 45.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "kills"
+
+[node name="damage_dealth_text" type="Label" parent="camera_view/death_menu/death_screen/text"]
+margin_left = 32.0
+margin_top = 48.0
+margin_right = 114.0
+margin_bottom = 53.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "damage dealt"
+
+[node name="waves_survived_text" type="Label" parent="camera_view/death_menu/death_screen/text"]
+margin_left = 32.0
+margin_top = 56.0
+margin_right = 114.0
+margin_bottom = 61.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "waves survived"
+
+[node name="num_text" type="Node2D" parent="camera_view/death_menu/death_screen"]
+position = Vector2( 0, 33 )
+
+[node name="score_num" type="Label" parent="camera_view/death_menu/death_screen/num_text"]
+margin_left = 94.0
+margin_top = 32.0
+margin_right = 176.0
+margin_bottom = 37.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "000"
+
+[node name="kills_num" type="Label" parent="camera_view/death_menu/death_screen/num_text"]
+margin_left = 94.0
+margin_top = 40.0
+margin_right = 176.0
+margin_bottom = 45.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "0"
+
+[node name="damage_dealt_num" type="Label" parent="camera_view/death_menu/death_screen/num_text"]
+margin_left = 94.0
+margin_top = 48.0
+margin_right = 176.0
+margin_bottom = 53.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "000000"
+
+[node name="waves_survived_num" type="Label" parent="camera_view/death_menu/death_screen/num_text"]
+margin_left = 94.0
+margin_top = 56.0
+margin_right = 176.0
+margin_bottom = 61.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "0"
+
+[node name="boom" type="AudioStreamPlayer2D" parent="camera_view/death_menu/death_screen"]
+stream = ExtResource( 4 )
+
+[node name="death_piano_thummmmm" type="AudioStreamPlayer2D" parent="camera_view/death_menu/death_screen"]
+stream = ExtResource( 5 )
+volume_db = 10.0
+
+[node name="reset" type="Area2D" parent="camera_view/death_menu/death_screen"]
+position = Vector2( 160, 120 )
+
+[node name="text" type="Label" parent="camera_view/death_menu/death_screen/reset"]
+margin_left = -37.0
+margin_right = 39.0
+margin_bottom = 15.0
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Reset"
+align = 1

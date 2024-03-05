@@ -1,0 +1,678 @@
+[gd_scene load_steps=83 format=2]
+
+[ext_resource path="res://player/main/player.gd" type="Script" id=1]
+[ext_resource path="res://art/player_art/sword.png" type="Texture" id=2]
+[ext_resource path="res://art/player_art/attack_effects/slash_1.png" type="Texture" id=3]
+[ext_resource path="res://player/ui/system/health_ui.gd" type="Script" id=4]
+[ext_resource path="res://art/effects_art/particle_art/particle_shadowed.png" type="Texture" id=5]
+[ext_resource path="res://player/ui/system/power_ui.gd" type="Script" id=6]
+[ext_resource path="res://sounds/player_sounds/player_damaged.wav" type="AudioStream" id=7]
+[ext_resource path="res://art/effects_art/player_effects/charge_1.png" type="Texture" id=8]
+[ext_resource path="res://player/ui/system/wave_ui.gd" type="Script" id=9]
+[ext_resource path="res://art/font.tres" type="DynamicFont" id=10]
+[ext_resource path="res://sounds/player_sounds/attack_1.wav" type="AudioStream" id=11]
+[ext_resource path="res://sounds/player_sounds/attack_2.wav" type="AudioStream" id=12]
+[ext_resource path="res://player/ui/system/super_ui.gd" type="Script" id=13]
+[ext_resource path="res://sounds/player_sounds/attack_charge.wav" type="AudioStream" id=14]
+[ext_resource path="res://player/ui/system/score_ui.gd" type="Script" id=15]
+[ext_resource path="res://art/pico-8-font.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://player/ui/system/boss_ui.gd" type="Script" id=17]
+[ext_resource path="res://player/ui/system/coin_ui.gd" type="Script" id=18]
+[ext_resource path="res://art/misc_art/coin.png" type="Texture" id=19]
+[ext_resource path="res://art/player_art/ui_super.png" type="Texture" id=20]
+[ext_resource path="res://player/ui/system/combo_ui.gd" type="Script" id=21]
+[ext_resource path="res://art/alagard.ttf" type="DynamicFontData" id=22]
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 3 )
+region = Rect2( 512, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 3 )
+region = Rect2( 576, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 3 )
+region = Rect2( 640, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=24]
+animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Curve" id=30]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="RectangleShape2D" id=25]
+extents = Vector2( 40.5, 11.5 )
+
+[sub_resource type="RectangleShape2D" id=58]
+extents = Vector2( 8.07375, 1.70905 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 8 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 8 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 8 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 8 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 8 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 8 )
+region = Rect2( 768, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 8 )
+region = Rect2( 896, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 8 )
+region = Rect2( 1024, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 8 )
+region = Rect2( 1152, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 8 )
+region = Rect2( 1280, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 8 )
+region = Rect2( 1408, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 8 )
+region = Rect2( 1536, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=48]
+animations = [ {
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
+"loop": true,
+"name": "default",
+"speed": 50.0
+} ]
+
+[sub_resource type="Animation" id=2]
+resource_name = "attack_1"
+length = 0.147
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0100758, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 60.0, -60.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_attack_boos_2_true"
+} ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "attack_2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 64, 0 ), Vector2( 32, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -740.0, 0.0 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_attack_boos_2_true"
+} ]
+}
+
+[sub_resource type="Animation" id=54]
+resource_name = "charge_1"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_attack_boos_2_true"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "none"
+loop = true
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00999999, 0.989467 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_attack_bool_2_false"
+}, {
+"args": [  ],
+"method": "set_attack_bool_2_false"
+} ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "attack_1"
+
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "attack_2"
+
+[sub_resource type="AnimationNodeAnimation" id=55]
+animation = "charge_1"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "none"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=56]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=57]
+
+[sub_resource type="AnimationNodeStateMachine" id=7]
+states/attack_1/node = SubResource( 9 )
+states/attack_1/position = Vector2( 395.333, 107.667 )
+states/attack_2/node = SubResource( 32 )
+states/attack_2/position = Vector2( 358, 411.667 )
+states/charge_1/node = SubResource( 55 )
+states/charge_1/position = Vector2( 403.333, 234.333 )
+states/none/node = SubResource( 10 )
+states/none/position = Vector2( 71.3334, 235.666 )
+transitions = [ "none", "attack_1", SubResource( 11 ), "attack_1", "none", SubResource( 12 ), "none", "attack_2", SubResource( 33 ), "attack_2", "none", SubResource( 34 ), "none", "charge_1", SubResource( 56 ), "charge_1", "none", SubResource( 57 ) ]
+start_node = "none"
+graph_offset = Vector2( -73, 30 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 1, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0.294118, 0.294118, 1 )
+
+[sub_resource type="StyleBoxFlat" id=27]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.247059, 0, 0, 1 )
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id=49]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id=50]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=51]
+size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 16 )
+
+[sub_resource type="DynamicFont" id=66]
+size = 5
+font_data = ExtResource( 16 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 19 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 19 )
+region = Rect2( 16, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 19 )
+region = Rect2( 24, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 19 )
+region = Rect2( 32, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 19 )
+region = Rect2( 40, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=65]
+animations = [ {
+"frames": [ SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 62 ), SubResource( 61 ), SubResource( 60 ), SubResource( 59 ), SubResource( 59 ), SubResource( 59 ), SubResource( 64 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=67]
+outline_size = 1
+font_data = ExtResource( 22 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 21, 4 )
+
+[node name="player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.435294, 0.454902, 1, 1 )
+position = Vector2( -31, 0 )
+texture = ExtResource( 2 )
+offset = Vector2( 64, 0 )
+
+[node name="slash_1" type="AnimatedSprite" parent="sprite"]
+position = Vector2( 35, 0 )
+frames = SubResource( 24 )
+frame = 2
+speed_scale = 4.0
+playing = true
+
+[node name="effect" type="Node2D" parent="sprite"]
+position = Vector2( 31, 0 )
+
+[node name="particles" type="CPUParticles2D" parent="sprite/effect"]
+position = Vector2( 6, 0 )
+emitting = false
+amount = 64
+one_shot = true
+explosiveness = 0.7
+lifetime_randomness = 1.0
+local_coords = false
+texture = ExtResource( 5 )
+emission_shape = 2
+emission_rect_extents = Vector2( 18, 6 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 43.0
+initial_velocity_random = 1.0
+scale_amount_curve = SubResource( 30 )
+
+[node name="hitrect" type="Area2D" parent="sprite"]
+position = Vector2( 31, 0 )
+z_index = 1
+
+[node name="collision" type="CollisionShape2D" parent="sprite/hitrect"]
+position = Vector2( 23.4227, -0.411118 )
+shape = SubResource( 25 )
+
+[node name="hurtrect" type="Area2D" parent="sprite"]
+position = Vector2( 31, 0 )
+z_index = 1
+monitorable = false
+
+[node name="collision" type="CollisionShape2D" parent="sprite/hurtrect"]
+position = Vector2( 11.376, 0.523545 )
+shape = SubResource( 58 )
+
+[node name="charge_1" type="AnimatedSprite" parent="sprite"]
+visible = false
+position = Vector2( 36, 0 )
+rotation = 0.746613
+frames = SubResource( 48 )
+frame = 9
+
+[node name="shadow" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0.498039 )
+position = Vector2( 1, 6 )
+z_index = -1
+texture = ExtResource( 2 )
+
+[node name="p_anim" type="AnimationPlayer" parent="."]
+anims/attack_1 = SubResource( 2 )
+anims/attack_2 = SubResource( 31 )
+anims/charge_1 = SubResource( 54 )
+anims/none = SubResource( 3 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 7 )
+anim_player = NodePath("../p_anim")
+active = true
+parameters/playback = SubResource( 8 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="health_ui" type="Node2D" parent="UI"]
+position = Vector2( 16, 16 )
+script = ExtResource( 4 )
+
+[node name="shadow" type="ColorRect" parent="UI/health_ui"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 53.0
+margin_bottom = 9.0
+color = Color( 0, 0, 0, 0.498039 )
+
+[node name="health_bar" type="ProgressBar" parent="UI/health_ui"]
+margin_right = 50.0
+margin_bottom = 6.0
+custom_styles/fg = SubResource( 26 )
+custom_styles/bg = SubResource( 27 )
+value = 50.0
+percent_visible = false
+
+[node name="power_ui" type="Node2D" parent="UI"]
+position = Vector2( 12, 24 )
+script = ExtResource( 6 )
+
+[node name="power_bar" type="TextureProgress" parent="UI/power_ui"]
+modulate = Color( 1, 1, 1, 0.498039 )
+margin_right = 16.0
+margin_bottom = 16.0
+value = 50.0
+texture_progress = ExtResource( 20 )
+fill_mode = 3
+
+[node name="Sprite" type="Sprite" parent="UI/power_ui/power_bar"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 8, 8 )
+z_index = -1
+texture = ExtResource( 20 )
+
+[node name="wave_ui" type="Node2D" parent="UI"]
+position = Vector2( 0, 159 )
+script = ExtResource( 9 )
+
+[node name="rect" type="NinePatchRect" parent="UI/wave_ui"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="wave_bar" type="ProgressBar" parent="UI/wave_ui/rect"]
+margin_left = 75.0
+margin_top = 6.0
+margin_right = 245.0
+margin_bottom = 8.0
+custom_styles/fg = SubResource( 49 )
+custom_styles/bg = SubResource( 50 )
+max_value = 60.0
+value = 30.0
+percent_visible = false
+
+[node name="wave_text" type="Label" parent="UI/wave_ui/rect"]
+margin_left = 76.0
+margin_top = 10.0
+margin_right = 396.0
+margin_bottom = 50.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "WAVE 1"
+
+[node name="wave_effect_text" type="Label" parent="UI/wave_ui/rect"]
+margin_left = -75.0
+margin_top = 10.0
+margin_right = 245.0
+margin_bottom = 50.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "effect: none"
+align = 2
+
+[node name="super_ui" type="Node2D" parent="UI"]
+position = Vector2( 12, 24 )
+script = ExtResource( 13 )
+
+[node name="score_ui" type="Node2D" parent="UI"]
+position = Vector2( 109, 18 )
+script = ExtResource( 15 )
+
+[node name="shadow" type="ColorRect" parent="UI/score_ui"]
+margin_left = 144.0
+margin_top = -2.0
+margin_right = 192.0
+margin_bottom = 7.0
+color = Color( 0, 0, 0, 0.498039 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/score_ui"]
+margin_left = 142.0
+margin_top = -4.0
+margin_right = 190.0
+margin_bottom = 5.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="scoretext" type="RichTextLabel" parent="UI/score_ui"]
+margin_left = 144.0
+margin_top = -2.0
+margin_right = 190.0
+margin_bottom = 4.0
+custom_fonts/normal_font = SubResource( 51 )
+meta_underlined = false
+text = "0000"
+fit_content_height = true
+
+[node name="text" type="RichTextLabel" parent="UI/score_ui"]
+margin_left = 118.0
+margin_top = -2.0
+margin_right = 164.0
+margin_bottom = 4.0
+rect_clip_content = false
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 51 )
+meta_underlined = false
+text = "score:"
+fit_content_height = true
+
+[node name="coin_ui" type="Node2D" parent="UI"]
+position = Vector2( 105, 32 )
+script = ExtResource( 18 )
+
+[node name="shadow" type="ColorRect" parent="UI/coin_ui"]
+margin_left = 163.0
+margin_top = -2.0
+margin_right = 197.0
+margin_bottom = 7.0
+color = Color( 0, 0, 0, 0.498039 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/coin_ui"]
+margin_left = 161.0
+margin_top = -4.0
+margin_right = 195.0
+margin_bottom = 5.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="coin_text" type="Label" parent="UI/coin_ui"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 163.0
+margin_top = -2.0
+margin_right = 209.0
+margin_bottom = 4.0
+custom_fonts/font = SubResource( 66 )
+text = "00"
+
+[node name="coin_anim" type="AnimatedSprite" parent="UI/coin_ui"]
+position = Vector2( 155, 0 )
+frames = SubResource( 65 )
+frame = 5
+speed_scale = 5.0
+playing = true
+
+[node name="coin_anim2" type="AnimatedSprite" parent="UI/coin_ui"]
+modulate = Color( 0, 0, 0, 0.498039 )
+position = Vector2( 156, 1 )
+z_index = -1
+frames = SubResource( 65 )
+frame = 5
+speed_scale = 5.0
+playing = true
+
+[node name="boss_ui" type="Node2D" parent="UI"]
+script = ExtResource( 17 )
+
+[node name="combo_ui" type="Node2D" parent="UI"]
+position = Vector2( 279, 44 )
+script = ExtResource( 21 )
+
+[node name="combo" type="Label" parent="UI/combo_ui"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.427451, 0, 0, 1 )
+custom_fonts/font = SubResource( 67 )
+text = "69"
+
+[node name="player_damaged" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = 22.0
+
+[node name="attack_1_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+volume_db = 24.0
+pitch_scale = 0.3
+autoplay = true
+
+[node name="attack_2_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+volume_db = -80.0
+pitch_scale = 0.2
+autoplay = true
+
+[node name="charge_1_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 14 )
+pitch_scale = 4.0
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 0 )
+shape = SubResource( 1 )
+
+[node name="Listener2D" type="Listener2D" parent="."]
+current = true
+
+[connection signal="area_entered" from="sprite/hurtrect" to="." method="_on_hurtrect_area_entered"]

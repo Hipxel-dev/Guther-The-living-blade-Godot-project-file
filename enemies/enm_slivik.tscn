@@ -1,0 +1,105 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://sounds/impact_sounds/hit_1.wav" type="AudioStream" id=1]
+[ext_resource path="res://sounds/enemy_sounds/die_sounds/squeueueue.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/impact_sounds/seismic-slam.wav" type="AudioStream" id=3]
+[ext_resource path="res://art/enemy_art/slitik.png" type="Texture" id=4]
+[ext_resource path="res://enemies/scripts/enm_slivik.gd" type="Script" id=5]
+[ext_resource path="res://art/effects_art/player_effects/shadow.png" type="Texture" id=6]
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+uniform float outline_width = 2.0;
+uniform vec4 outline_color: hint_color;
+
+void fragment() {
+	vec4 col = texture(TEXTURE, UV);
+	vec2 ps = TEXTURE_PIXEL_SIZE;
+	float a;
+	float maxa = col.a;
+	float mina = col.a;
+
+	a = texture(TEXTURE, UV + vec2(0.0, -outline_width) * ps).a;
+	maxa = max(a, maxa);
+
+	a = texture(TEXTURE, UV + vec2(0.0, outline_width) * ps).a;
+	maxa = max(a, maxa);
+
+	a = texture(TEXTURE, UV + vec2(-outline_width, 0.0) * ps).a;
+	maxa = max(a, maxa);
+
+	a = texture(TEXTURE, UV + vec2(outline_width, 0.0) * ps).a;
+	maxa = max(a, maxa);
+
+	COLOR = mix(col, outline_color, maxa - mina);
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+shader_param/outline_width = 0.5
+shader_param/outline_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 5, 16 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 10, 16 )
+
+[node name="enm_slivik" type="KinematicBody2D" groups=["node_enemy"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 5 )
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+material = SubResource( 8 )
+frames = SubResource( 4 )
+
+[node name="shadow" type="Sprite" parent="sprite"]
+position = Vector2( 0, 9 )
+z_index = -1
+texture = ExtResource( 6 )
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
+
+[node name="hitbox" type="Area2D" parent="." groups=["enemy"]]
+collision_layer = 0
+
+[node name="collision" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource( 6 )
+
+[node name="hit_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+volume_db = 1.0
+pitch_scale = 0.9
+
+[node name="bass" type="AudioStreamPlayer2D" parent="hit_sfx"]
+stream = ExtResource( 3 )
+volume_db = -22.0
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = 24.0
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

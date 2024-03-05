@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://sounds/impact_sounds/hit_1.wav" type="AudioStream" id=1]
+[ext_resource path="res://sounds/enemy_sounds/hurt_sounds/stavik_hrt.wav" type="AudioStream" id=2]
+[ext_resource path="res://art/effects_art/player_effects/shadow_medium.png" type="Texture" id=3]
+[ext_resource path="res://sounds/shape_sounds/pmoooouuuuuummmm.wav" type="AudioStream" id=4]
+[ext_resource path="res://enemies/bosses/scripts/enm_boss_eye_of_doom.gd" type="Script" id=5]
+[ext_resource path="res://art/enemy_art/eye_of_doom.png" type="Texture" id=6]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 43, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 6 )
+region = Rect2( 43, 0, 43, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 86, 0, 43, 64 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9, 29 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10.5, 29.5 )
+
+[node name="enm_boss_eye_of_doom" type="KinematicBody2D" groups=["boss", "node_enemy"]]
+script = ExtResource( 5 )
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -15 )
+frames = SubResource( 7 )
+frame = 2
+speed_scale = 3.0
+playing = true
+
+[node name="shadow" type="Sprite" parent="sprite"]
+position = Vector2( 0, 31 )
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -13 )
+shape = SubResource( 2 )
+
+[node name="hitbox" type="Area2D" parent="." groups=["enemy"]]
+collision_layer = 0
+
+[node name="collision" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( -0.5, -13.5 )
+shape = SubResource( 3 )
+
+[node name="hit_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+volume_db = 1.0
+pitch_scale = 0.9
+
+[node name="bass" type="AudioStreamPlayer2D" parent="hit_sfx"]
+stream = ExtResource( 4 )
+volume_db = -40.0
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = 2.0
+
+[node name="shoot_pos" type="Node2D" parent="."]
+position = Vector2( 1, -27 )
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
